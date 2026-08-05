@@ -3,135 +3,394 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vishal Lunagariya - Full Stack Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Vishal Lunagariya — Full Stack Developer & Technical Lead</title>
+  <meta name="description" content="Vishal Lunagariya — Full Stack Developer & Technical Lead with 10+ years building and scaling web applications across healthcare, gaming, and e-commerce." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
+    :root{
+      --bg:#070b16;
+      --bg-2:#0c1223;
+      --card:rgba(255,255,255,.04);
+      --card-brd:rgba(255,255,255,.08);
+      --text:#e8ecf4;
+      --muted:#9aa6c0;
+      --accent:#3b82f6;
+      --accent-2:#8b5cf6;
+      --accent-3:#06d6c4;
+      --grad:linear-gradient(120deg,#3b82f6,#8b5cf6 55%,#06d6c4);
+      --radius:18px;
     }
-    body {
-      background: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
-      padding: 40px;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      overflow-x:hidden;
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
+    /* ambient background glows */
+    body::before,body::after{
+      content:"";position:fixed;z-index:0;border-radius:50%;
+      filter:blur(120px);opacity:.5;pointer-events:none;
     }
-    h1 {
-      font-size: 2.5rem;
-      color: #222;
+    body::before{width:520px;height:520px;top:-160px;left:-120px;
+      background:radial-gradient(circle,#3b82f6,transparent 70%);}
+    body::after{width:560px;height:560px;bottom:-200px;right:-140px;
+      background:radial-gradient(circle,#8b5cf6,transparent 70%);}
+    .wrap{max-width:1080px;margin:auto;padding:0 22px;position:relative;z-index:1}
+    h2{font-family:'Space Grotesk',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:-.5px}
+    a{color:inherit;text-decoration:none}
+    .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+    /* NAV */
+    nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(14px);
+      background:rgba(7,11,22,.72);
+      border-bottom:1px solid var(--card-brd);
     }
-    h2 {
-      margin-top: 30px;
-      font-size: 1.5rem;
-      color: #444;
+    .nav-in{display:flex;align-items:center;justify-content:space-between;
+      max-width:1080px;margin:auto;padding:12px 22px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:600}
+    .brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);
+      display:grid;place-items:center;font-size:.8rem;color:#fff;font-weight:700}
+    .nav-links{display:flex;gap:22px;align-items:center}
+    .nav-links a{color:var(--muted);font-size:.92rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{padding:8px 16px;border-radius:10px;background:var(--grad);color:#fff !important;font-weight:600}
+    @media(max-width:720px){.nav-links a:not(.nav-cta){display:none}}
+
+    /* HERO */
+    header{padding:70px 0 40px;text-align:center}
+    .avatar{
+      width:104px;height:104px;border-radius:50%;margin:0 auto 24px;
+      background:var(--grad);display:grid;place-items:center;
+      font-family:'Space Grotesk',sans-serif;font-size:2.3rem;font-weight:700;color:#fff;
+      box-shadow:0 0 0 6px rgba(139,92,246,.12),0 18px 50px rgba(59,130,246,.4);
+      position:relative;
     }
-    p, li {
-      margin: 10px 0;
-    }
-    .tagline {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: #555;
-    }
-    .section {
-      margin-top: 40px;
-    }
-    .highlight {
-      color: #007acc;
-      font-weight: bold;
-    }
-    .footer {
-      margin-top: 60px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
-    }
-    .btn-download {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #007acc;
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-    .btn-download:hover {
-      background-color: #005f99;
-    }
+    .avatar::after{content:"";position:absolute;inset:-3px;border-radius:50%;
+      background:conic-gradient(from 0deg,#3b82f6,#8b5cf6,#06d6c4,#3b82f6);
+      z-index:-1;filter:blur(9px);opacity:.7}
+    header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);
+      font-weight:700;letter-spacing:-1.5px;line-height:1.05}
+    .role{margin-top:10px;font-size:clamp(1rem,2.6vw,1.3rem);font-weight:600;color:var(--text)}
+    .tagline{margin-top:14px;color:var(--muted);max-width:640px;margin-inline:auto;font-size:1.02rem}
+    .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+    .badge{font-size:.8rem;color:var(--muted);border:1px solid var(--card-brd);
+      background:var(--card);padding:6px 12px;border-radius:20px}
+    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+    .btn{padding:12px 22px;border-radius:12px;font-weight:600;font-size:.95rem;
+      border:1px solid var(--card-brd);background:var(--card);color:var(--text);
+      transition:transform .2s,border-color .2s,background .2s;display:inline-flex;gap:8px;align-items:center}
+    .btn:hover{transform:translateY(-2px);border-color:rgba(139,92,246,.6)}
+    .btn.primary{background:var(--grad);border:none;color:#fff;box-shadow:0 10px 30px rgba(59,130,246,.35)}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:44px 0}
+    .stat{background:var(--card);border:1px solid var(--card-brd);border-radius:var(--radius);
+      padding:22px 16px;text-align:center}
+    .stat .num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700}
+    .stat .lbl{color:var(--muted);font-size:.82rem;margin-top:4px}
+    @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+    section{padding:44px 0}
+    .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+    .sec-head .line{height:1px;flex:1;background:linear-gradient(90deg,var(--card-brd),transparent)}
+    .kicker{color:var(--accent-2);font-weight:600;font-size:.82rem;letter-spacing:2px;text-transform:uppercase}
+
+    .about p{color:var(--muted);font-size:1.08rem;max-width:820px}
+    .about strong{color:var(--text)}
+
+    /* TIMELINE */
+    .timeline{position:relative;padding-left:26px}
+    .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;
+      background:linear-gradient(var(--accent),var(--accent-2),transparent)}
+    .job{position:relative;padding:0 0 26px 8px}
+    .job::before{content:"";position:absolute;left:-26px;top:5px;width:13px;height:13px;border-radius:50%;
+      background:var(--grad);box-shadow:0 0 0 4px rgba(139,92,246,.15)}
+    .job .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:baseline}
+    .job h3{font-family:'Space Grotesk',sans-serif;font-size:1.12rem;font-weight:600}
+    .job .when{color:var(--accent-3);font-size:.85rem;font-weight:600;white-space:nowrap}
+    .job p{color:var(--muted);font-size:.98rem;margin-top:4px}
+
+    /* PROJECTS */
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+    .card{background:var(--card);border:1px solid var(--card-brd);border-radius:var(--radius);
+      padding:22px;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden}
+    .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);
+      opacity:0;transition:opacity .25s}
+    .card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.5);box-shadow:0 20px 40px rgba(0,0,0,.35)}
+    .card:hover::before{opacity:1}
+    .card.feature{grid-column:span 2;background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(139,92,246,.08))}
+    .card.feature::before{opacity:1}
+    @media(max-width:560px){.card.feature{grid-column:span 1}}
+    .card h3{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;margin-bottom:6px}
+    .card .desc{color:var(--muted);font-size:.92rem;min-height:38px}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+    .tag{font-size:.72rem;color:var(--accent-3);background:rgba(6,214,196,.1);
+      border:1px solid rgba(6,214,196,.2);padding:3px 9px;border-radius:20px}
+    .card .link{font-size:.86rem;font-weight:600;color:var(--accent);display:inline-flex;gap:5px;align-items:center}
+    .card .link:hover{gap:9px}
+
+    /* SKILLS */
+    .skill-group{margin-bottom:18px}
+    .skill-group .h{color:var(--muted);font-size:.85rem;font-weight:600;margin-bottom:10px;letter-spacing:.5px}
+    .chips{display:flex;gap:9px;flex-wrap:wrap}
+    .chip{font-size:.85rem;padding:8px 14px;border-radius:11px;background:var(--card);
+      border:1px solid var(--card-brd);color:var(--text);transition:border-color .2s,transform .2s}
+    .chip:hover{border-color:rgba(139,92,246,.5);transform:translateY(-2px)}
+
+    /* EDUCATION */
+    .edu{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:640px){.edu{grid-template-columns:1fr}}
+    .edu .card h3{font-size:1.02rem}
+
+    /* CONTACT */
+    .contact{text-align:center;background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(139,92,246,.08));
+      border:1px solid var(--card-brd);border-radius:24px;padding:48px 24px;margin-top:20px}
+    .contact h2{margin-bottom:10px}
+    .contact p{color:var(--muted);margin-bottom:22px}
+    .contact .links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    footer{text-align:center;color:var(--muted);font-size:.85rem;padding:34px 0 44px}
+
+    /* reveal on scroll */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+    .reveal.in{opacity:1;transform:none}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Vishal Lunagariya</h1>
-    <p class="tagline">🚀 Full Stack Developer & Technical Lead · 3D Web & AI</p>
+  <nav>
+    <div class="nav-in">
+      <a class="brand" href="#top"><span class="dot">VL</span>Vishal Lunagariya</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a class="nav-cta" href="resume/Vishal_Lunagariya_Resume.pdf" download>Resume</a>
+      </div>
+    </div>
+  </nav>
 
-    <div class="section">
-      <h2>About Me</h2>
-      <p>I’m a Full Stack Developer and Technical Lead with <span class="highlight">10+ years</span> of experience architecting, building, and scaling web applications end-to-end — from system design through production deployment. I currently <span class="highlight">lead and mentor a team of 5 developers</span> at dekco.ai, where I cut viewer and page load times from 15–20s down to 1–3s. My work spans <span class="highlight">healthcare (medical imaging / PACS-RIS), gaming backends, and e-commerce/CRM</span>, and I integrate <span class="highlight">AI/LLM capabilities (OpenAI, Anthropic)</span> into modern engineering workflows.</p>
+  <div class="wrap" id="top">
+    <header>
+      <div class="avatar reveal">VL</div>
+      <h1 class="reveal">Vishal <span class="grad-text">Lunagariya</span></h1>
+      <p class="role reveal">Full Stack Developer &amp; Technical Lead</p>
+      <p class="tagline reveal">10+ years architecting, building, and scaling web applications end-to-end — across healthcare, gaming, and e-commerce, with hands-on AI/LLM integration.</p>
+      <div class="badges reveal">
+        <span class="badge">🏆 Team Lead</span>
+        <span class="badge">🩺 PACS / Medical Imaging</span>
+        <span class="badge">🎮 Gaming Backends</span>
+        <span class="badge">🤖 AI / LLM</span>
+        <span class="badge">🧊 3D Web</span>
+      </div>
+      <div class="cta reveal">
+        <a class="btn primary" href="resume/Vishal_Lunagariya_Resume.pdf" download>📄 Download Resume</a>
+        <a class="btn" href="https://www.linkedin.com/in/vishal-lunagariya/" target="_blank">in LinkedIn</a>
+        <a class="btn" href="https://github.com/lunagariyavishal" target="_blank">⌥ GitHub</a>
+        <a class="btn" href="mailto:d.lunagariya131@gmail.com">✉ Email</a>
+      </div>
+    </header>
+
+    <div class="stats reveal">
+      <div class="stat"><div class="num grad-text">10+</div><div class="lbl">Years Experience</div></div>
+      <div class="stat"><div class="num grad-text">5</div><div class="lbl">Dev Team Led</div></div>
+      <div class="stat"><div class="num grad-text">1,000+</div><div class="lbl">Institutions Served</div></div>
+      <div class="stat"><div class="num grad-text">6–7</div><div class="lbl">Freelance Clients</div></div>
     </div>
 
-    <div class="section">
-      <h2>Experience</h2>
-      <ul>
-        <li><strong>Lead Engineer — dekco.ai</strong> (Feb 2025 – Present) – Lead development of a PACS radiology platform used by 1,000+ institutions; mentor a team of 5; drove major performance optimization.</li>
-        <li><strong>Senior Full Stack Developer — Metamersive</strong> (Aug 2022 – Feb 2025) – Backend systems for 3 games; optimized 15+ REST APIs.</li>
-        <li><strong>Senior Web Developer — Addit Infotech</strong> (Feb 2018 – Jul 2022) – Full-lifecycle web apps; led code reviews and mentoring.</li>
-        <li><strong>Web Developer — BinaryCode Services</strong> (Jun 2016 – Feb 2018) – Websites and web apps with modern frontend/backend stacks.</li>
-        <li><strong>Freelance Contractor</strong> (2021 – Present) – Custom e-commerce & CRM with interactive Three.js/Canvas front-ends for 6–7 clients.</li>
-      </ul>
-    </div>
+    <section id="about" class="about reveal">
+      <div class="sec-head"><span class="kicker">About</span><span class="line"></span></div>
+      <p>I’m a <strong>Full Stack Developer and Technical Lead</strong> with 10+ years of experience taking web applications from system design through production deployment. I currently <strong>lead and mentor a team of 5 developers at dekco.ai</strong>, where I cut viewer and page load times from <strong>15–20s down to 1–3s</strong>. My work spans <strong>healthcare (PACS-RIS), gaming backends, and e-commerce/CRM</strong>, and I integrate <strong>AI/LLM capabilities (OpenAI, Anthropic)</strong> into modern engineering workflows.</p>
+    </section>
 
-    <div class="section">
-      <h2>Major Projects</h2>
-      <ul>
-        <li><strong>V-Compression</strong> – Windows desktop app for bulk image resize &amp; compression (JPG/PNG/WebP) with TIF tile channel export, built in Python – <a href="https://github.com/lunagariyavishal/V-Compression-releases/releases/latest" target="_blank">Download</a></li>
-        <li><strong>Statley</strong> – E-commerce Website</li>
-        <li><strong>GoodPik</strong> – Image Processing Platform</li>
-        <li><strong>Kigali Event</strong> – Event Booking & Management</li>
-        <li><strong>IVAccess</strong> – Hospital Management – <a href="https://www.ivaccess.com/" target="_blank">ivaccess.com</a></li>
-        <li><strong>Federal Appraisal</strong> – <a href="https://www.faaausa.com/" target="_blank">faaausa.com</a></li>
-        <li><strong>Parshvaa Edu Mentor</strong> – IScore, Evaluate, TScore, Children Academy</li>
-        <li><strong>Cbit</strong> – Gaming App – <a href="https://cbitoriginal.com/" target="_blank">cbitoriginal.com</a></li>
-        <li><strong>Global Teen Patti</strong> – <a href="https://teenpattiglobal.co.in/" target="_blank">teenpattiglobal.co.in</a></li>
-<!--         <li><strong>InnovisionImaging</strong> – <a href="https://www.innovisionimaging.com/" target="_blank">innovisionimaging.com</a></li> -->
-<!--         <li><strong>Dekco.ai</strong> – AI-Based PACS System – <a href="https://www.dekco.ai/" target="_blank">dekco.ai</a>, <a href="https://pacs.dekco.ai/" target="_blank">pacs.dekco.ai</a></li> -->
-        <li><strong>Gonishago</strong> – <a href="https://www.gonishago.com/" target="_blank">gonishago.com</a></li>
-        <li><strong>GoBroGame</strong> – <a href="https://www.gobrogame.com/" target="_blank">gobrogame.com</a></li>
-        <li><strong>KikiKuka</strong> – <a href="https://dev.kikikuka.com/" target="_blank">dev.kikikuka.com</a></li>
-        <li><strong>Semler Education</strong> – <a href="https://education-semlerscientific.talentlms.com/" target="_blank">education-semlerscientific.talentlms.com</a></li>
-      </ul>
-    </div>
+    <section id="experience" class="reveal">
+      <div class="sec-head"><span class="kicker">Experience</span><span class="line"></span></div>
+      <div class="timeline">
+        <div class="job">
+          <div class="top"><h3>Lead Engineer — dekco.ai</h3><span class="when">Feb 2025 – Present</span></div>
+          <p>Lead end-to-end development of a PACS radiology platform used by 1,000+ healthcare institutions. Mentor a team of 5, own architecture decisions, and drove major performance optimization (15–20s → 1–3s).</p>
+        </div>
+        <div class="job">
+          <div class="top"><h3>Senior Full Stack Developer — Metamersive</h3><span class="when">Aug 2022 – Feb 2025</span></div>
+          <p>Engineered and deployed backend systems for 3 games, built scalable APIs, and optimized 15+ REST APIs to improve stability and response times.</p>
+        </div>
+        <div class="job">
+          <div class="top"><h3>Senior Web Developer — Addit Infotech</h3><span class="when">Feb 2018 – Jul 2022</span></div>
+          <p>Built full-lifecycle web applications with Node.js/Express, designed responsive interfaces, led code reviews, and mentored junior developers.</p>
+        </div>
+        <div class="job">
+          <div class="top"><h3>Web Developer — BinaryCode Services</h3><span class="when">Jun 2016 – Feb 2018</span></div>
+          <p>Developed websites and web apps with modern frontend and backend frameworks, focused on stable releases and maintainable code.</p>
+        </div>
+        <div class="job">
+          <div class="top"><h3>Freelance Contractor — Self-Employed</h3><span class="when">2021 – Present</span></div>
+          <p>Delivered custom e-commerce & CRM solutions with interactive Three.js/Canvas front-ends for 6–7 clients, and contributed to AI training-data work.</p>
+        </div>
+      </div>
+    </section>
 
-    <div class="section">
-      <h2>Technologies I Work With</h2>
-      <p><strong>Languages & Frameworks:</strong> Angular, TypeScript, Node.js (Express), PHP (CI, Laravel, WordPress, CakePHP, Yii), Python, React Native, Ionic, jQuery, JavaScript, HTML5, CSS3</p>
-      <p><strong>3D & AI:</strong> Three.js, HTML5 Canvas, LLM API Integration (OpenAI, Anthropic), AI-Assisted Development</p>
-      <p><strong>Databases:</strong> MySQL, MongoDB, PostgreSQL, MSSQL, Redis, SQLite, DynamoDB, Azure Cosmos DB</p>
-      <p><strong>DevOps & Cloud:</strong> Apache2, Nginx, Docker, Kubernetes, CI/CD, GitHub, MinIO, Linode, AWS (EC2, S3, SNS, RDS, SQS, Lightsail)</p>
-    </div>
+    <section id="projects" class="reveal">
+      <div class="sec-head"><span class="kicker">Projects</span><span class="line"></span></div>
+      <div class="proj-grid">
+        <div class="card feature">
+          <h3>⚡ V-Compression</h3>
+          <div class="desc">Windows desktop app for bulk image resize &amp; compression (JPG/PNG/WebP) with advanced TIF tile channel export — color JPG plus transparent carving PNG with color &amp; invert options.</div>
+          <div class="tags"><span class="tag">Python</span><span class="tag">PySide6</span><span class="tag">Pillow</span><span class="tag">Desktop</span></div>
+          <a class="link" href="https://github.com/lunagariyavishal/V-Compression-releases/releases/latest" target="_blank">Download the app →</a>
+        </div>
+        <div class="card">
+          <h3>IVAccess</h3>
+          <div class="desc">Hospital management platform for healthcare providers.</div>
+          <div class="tags"><span class="tag">Healthcare</span></div>
+          <a class="link" href="https://www.ivaccess.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>Federal Appraisal</h3>
+          <div class="desc">Appraisal services web platform.</div>
+          <div class="tags"><span class="tag">Web Platform</span></div>
+          <a class="link" href="https://www.faaausa.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>Cbit</h3>
+          <div class="desc">Gaming application with backend systems &amp; integrations.</div>
+          <div class="tags"><span class="tag">Gaming</span></div>
+          <a class="link" href="https://cbitoriginal.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>Global Teen Patti</h3>
+          <div class="desc">Real-time multiplayer card gaming platform.</div>
+          <div class="tags"><span class="tag">Gaming</span></div>
+          <a class="link" href="https://teenpattiglobal.co.in/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>GoBroGame</h3>
+          <div class="desc">Online gaming platform.</div>
+          <div class="tags"><span class="tag">Gaming</span></div>
+          <a class="link" href="https://www.gobrogame.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>Semler Education</h3>
+          <div class="desc">LMS-based education & training portal.</div>
+          <div class="tags"><span class="tag">EdTech</span></div>
+          <a class="link" href="https://education-semlerscientific.talentlms.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>Gonishago</h3>
+          <div class="desc">Business web platform.</div>
+          <div class="tags"><span class="tag">Web</span></div>
+          <a class="link" href="https://www.gonishago.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>KikiKuka</h3>
+          <div class="desc">Interactive web application.</div>
+          <div class="tags"><span class="tag">Web</span></div>
+          <a class="link" href="https://dev.kikikuka.com/" target="_blank">Visit site →</a>
+        </div>
+        <div class="card">
+          <h3>Statley</h3>
+          <div class="desc">Full-featured e-commerce website.</div>
+          <div class="tags"><span class="tag">E-commerce</span></div>
+        </div>
+        <div class="card">
+          <h3>GoodPik</h3>
+          <div class="desc">Image processing platform.</div>
+          <div class="tags"><span class="tag">Image Processing</span></div>
+        </div>
+        <div class="card">
+          <h3>Parshvaa Edu Mentor</h3>
+          <div class="desc">IScore, Evaluate, TScore & Children Academy suite.</div>
+          <div class="tags"><span class="tag">EdTech</span></div>
+        </div>
+      </div>
+    </section>
 
-    <div class="section">
-      <h2>Education</h2>
-      <p>🎓 Master of Computer Science (Information Technology) – Harivandana College, Rajkot · 2017–2019</p>
-      <p>🎓 Bachelor of Computer Science (Information Technology) – Harivandana College, Rajkot · 2014–2017</p>
-    </div>
+    <section id="skills" class="reveal">
+      <div class="sec-head"><span class="kicker">Skills</span><span class="line"></span></div>
+      <div class="skill-group">
+        <div class="h">Frontend</div>
+        <div class="chips">
+          <span class="chip">Angular</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span>
+          <span class="chip">React Native</span><span class="chip">Ionic</span><span class="chip">jQuery</span>
+          <span class="chip">HTML5</span><span class="chip">CSS3</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="h">Backend</div>
+        <div class="chips">
+          <span class="chip">Node.js / Express</span><span class="chip">PHP (Laravel, CI, Yii)</span>
+          <span class="chip">Python</span><span class="chip">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="h">3D &amp; AI</div>
+        <div class="chips">
+          <span class="chip">Three.js</span><span class="chip">HTML5 Canvas</span>
+          <span class="chip">OpenAI</span><span class="chip">Anthropic</span><span class="chip">AI-Assisted Dev</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="h">Databases</div>
+        <div class="chips">
+          <span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">PostgreSQL</span>
+          <span class="chip">MSSQL</span><span class="chip">Redis</span><span class="chip">DynamoDB</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="h">DevOps &amp; Cloud</div>
+        <div class="chips">
+          <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">CI/CD</span>
+          <span class="chip">AWS</span><span class="chip">Nginx</span><span class="chip">Git / GitHub</span>
+        </div>
+      </div>
+    </section>
 
-    <div class="section">
-      <h2>Contact</h2>
-      <p>📞 +91 8128512557 | 📧 d.lunagariya131@gmail.com</p>
-      <p>🔗 <a href="https://www.linkedin.com/in/vishal-lunagariya/" target="_blank">LinkedIn</a> · <a href="https://github.com/lunagariyavishal" target="_blank">GitHub</a></p>
-      <a class="btn-download" href="resume/Vishal_Lunagariya_Resume.pdf" download>📄 Download Resume</a>
-    </div>
+    <section id="education" class="reveal">
+      <div class="sec-head"><span class="kicker">Education</span><span class="line"></span></div>
+      <div class="edu">
+        <div class="card">
+          <h3>Master of Computer Science (IT)</h3>
+          <div class="desc">Harivandana College, Rajkot</div>
+          <div class="tags"><span class="tag">2017 – 2019</span></div>
+        </div>
+        <div class="card">
+          <h3>Bachelor of Computer Science (IT)</h3>
+          <div class="desc">Harivandana College, Rajkot</div>
+          <div class="tags"><span class="tag">2014 – 2017</span></div>
+        </div>
+      </div>
+    </section>
 
-    <div class="footer">
-      &copy; 2026 Vishal Lunagariya. All rights reserved.
-    </div>
+    <section id="contact">
+      <div class="contact reveal">
+        <h2>Let’s build something great</h2>
+        <p>Open to interesting full-stack, technical-lead, and freelance opportunities.</p>
+        <div class="links">
+          <a class="btn primary" href="mailto:d.lunagariya131@gmail.com">✉ d.lunagariya131@gmail.com</a>
+          <a class="btn" href="tel:+918128512557">📞 +91 8128512557</a>
+          <a class="btn" href="https://www.linkedin.com/in/vishal-lunagariya/" target="_blank">in LinkedIn</a>
+          <a class="btn" href="https://github.com/lunagariyavishal" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+    </section>
   </div>
+
+  <footer>© 2026 Vishal Lunagariya · Built with ❤️ &amp; code</footer>
+
+  <script>
+    const io=new IntersectionObserver((es)=>{
+      es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach((el,i)=>{
+      el.style.transitionDelay=(Math.min(i,6)*60)+'ms';
+      io.observe(el);
+    });
+  </script>
 </body>
 </html>
