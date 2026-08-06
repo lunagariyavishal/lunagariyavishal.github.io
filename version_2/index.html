@@ -216,12 +216,24 @@ footer{border-top:1px solid var(--line);padding:40px 6vw;display:flex;
   background:radial-gradient(circle at 50% 45%,rgba(204,255,0,.28),transparent 62%)}
 .live-status{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:.85rem;color:var(--muted)}
 .live-status .d{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 1.6s infinite}
+
+/* ===== magic: cursor spotlight + scroll progress ===== */
+.spotlight{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(204,255,0,.12),rgba(139,92,246,.06) 40%,transparent 62%);
+  transition:opacity .4s}
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:200;pointer-events:none}
+.progress>i{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;
+  box-shadow:0 0 14px var(--accent)}
+.marquee .track,.laptop-wrap,.work-head h2,.contact h2,.hero h1{will-change:transform}
 </style>
 </head>
 <body>
 
 <canvas id="gl"></canvas>
 <div class="grain"></div>
+<div class="spotlight"></div>
+<div class="progress"><i></i></div>
+<script>document.addEventListener('mousemove',function(e){var s=document.documentElement.style;s.setProperty('--mx',e.clientX+'px');s.setProperty('--my',e.clientY+'px');});</script>
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 
@@ -433,6 +445,8 @@ footer{border-top:1px solid var(--line);padding:40px 6vw;display:flex;
   <span>Rajkot, Gujarat, India</span>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script>
 /* ---------- WebGL aurora background ---------- */
@@ -497,53 +511,105 @@ document.querySelectorAll('.mag,nav .logo').forEach(el=>{
   el.addEventListener('mouseleave',()=>el.style.transform='translate(0,0)');
 });
 
-/* ---------- boot: preloader + reveals (robust, no heavy deps) ---------- */
-window.addEventListener('load',()=>{
-  const root=document.documentElement;
-  const pre=document.querySelector('.pre'),count=pre.querySelector('.count');
-  let done=false;
-
-  function finish(){
-    if(done)return;done=true;
+/* ---------- boot: preloader + MAGIC scroll ---------- */
+window.addEventListener('load',function(){
+  var root=document.documentElement;
+  var pre=document.querySelector('.pre'),count=pre.querySelector('.count');
+  var done=false;
+  function finish(){ if(done)return;done=true;
     pre.style.transform='translateY(-100%)';
-    setTimeout(()=>pre.style.display='none',900);
+    setTimeout(function(){pre.style.display='none';},900);
     root.classList.add('loaded');
-    initReveals();
+    initMagic();
   }
-
-  // preloader counter (0 → 100)
-  const dur=1500,t0=performance.now();
-  (function tick(now){
-    const p=Math.min(1,((now||performance.now())-t0)/dur);
+  var dur=1400,t0=performance.now();
+  (function tick(now){var p=Math.min(1,((now||performance.now())-t0)/dur);
     count.textContent=Math.round(p*100);
-    if(p<1)requestAnimationFrame(tick);else finish();
-  })(t0);
-
-  // safety net
+    if(p<1)requestAnimationFrame(tick);else finish();})(t0);
   setTimeout(finish,4500);
 
-  function initReveals(){
-    // split the big statement into words for a staggered fade
-    document.querySelectorAll('[data-split]').forEach(el=>{
-      const words=el.textContent.trim().split(/\s+/);
-      el.innerHTML=words.map((w,i)=>'<span class="w" style="transition-delay:'+(i*32)+'ms">'+w+'</span>').join(' ');
+  function splitWords(){
+    document.querySelectorAll('[data-split]').forEach(function(el){
+      var words=el.textContent.trim().split(/\s+/);
+      el.innerHTML=words.map(function(w){return '<span class="w">'+w+'</span>';}).join(' ');
     });
-    // tag reveal targets + stagger delays
-    document.querySelectorAll('.tag,.work-head h2,.job,.contact h2').forEach(el=>el.classList.add('reveal'));
-    document.querySelectorAll('.row').forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i*55)+'ms';});
-    document.querySelectorAll('.stat').forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i*80)+'ms';});
-    document.querySelectorAll('.skills .k').forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i*35)+'ms';});
+  }
+  function ioFallback(){
+    document.querySelectorAll('.tag,.work-head h2,.job,.contact h2,.stat,.skills .k,.row').forEach(function(el){el.classList.add('reveal');});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+    document.querySelectorAll('.reveal,.big-statement').forEach(function(el){io.observe(el);});
+  }
+  function lenisPlain(){ if(window.Lenis){var l=new Lenis({lerp:.09,smoothWheel:true});(function raf(t){l.raf(t);requestAnimationFrame(raf);})();} }
 
-    const io=new IntersectionObserver(es=>{
-      es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-    },{threshold:.14});
-    document.querySelectorAll('.reveal,.big-statement').forEach(el=>io.observe(el));
+  function initMagic(){
+    splitWords();
+    var G=window.gsap, ST=window.ScrollTrigger;
+    if(!G||!ST){ ioFallback(); lenisPlain(); return; }
+    G.registerPlugin(ST);
 
-    // smooth scroll (optional enhancement)
+    // buttery smooth scroll wired to ScrollTrigger
     if(window.Lenis){
-      const lenis=new Lenis({lerp:.09,smoothWheel:true});
-      (function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
+      var lenis=new Lenis({lerp:.085,smoothWheel:true});
+      lenis.on('scroll',ST.update);
+      G.ticker.add(function(t){lenis.raf(t*1000);});G.ticker.lagSmoothing(0);
     }
+
+    var TA='play reverse play reverse'; // re-animate every scroll
+
+    // reveals that fire (and reverse) on every pass
+    function reveal(sel,vars){
+      G.utils.toArray(sel).forEach(function(el){
+        G.from(el,Object.assign({y:64,opacity:0,duration:1,ease:'power3.out',
+          scrollTrigger:{trigger:el,start:'top 88%',toggleActions:TA}},vars||{}));
+      });
+    }
+    reveal('.tag');
+    reveal('.work-head h2',{y:90});
+    reveal('.job',{x:-50,y:0,duration:.9});
+    reveal('.contact h2',{y:120,scale:.94,duration:1.2});
+    reveal('.live-copy h2',{y:70});
+    reveal('.live-copy p',{y:40,duration:.8});
+
+    // rows: staggered slide with reverse
+    G.utils.toArray('.rows .row').forEach(function(el){
+      G.from(el,{y:70,opacity:0,duration:.8,ease:'power3.out',
+        scrollTrigger:{trigger:el,start:'top 92%',toggleActions:TA}});
+    });
+    // stats pop
+    G.utils.toArray('.stat').forEach(function(el,i){
+      G.from(el,{y:60,opacity:0,scale:.9,duration:.8,delay:i*.08,ease:'back.out(1.5)',
+        scrollTrigger:{trigger:'.stats',start:'top 86%',toggleActions:TA}});
+    });
+    // skills chips
+    G.utils.toArray('.skills .k').forEach(function(el,i){
+      G.from(el,{y:30,opacity:0,scale:.85,duration:.6,delay:i*.035,ease:'back.out(1.7)',
+        scrollTrigger:{trigger:'.skills',start:'top 88%',toggleActions:TA}});
+    });
+
+    // big statement: words light up as you scroll (scrubbed)
+    G.to('.big-statement .w',{opacity:1,stagger:.05,ease:'none',
+      scrollTrigger:{trigger:'.big-statement',start:'top 82%',end:'bottom 58%',scrub:.4}});
+
+    // PARALLAX — everything drifts as you scroll (the "magic")
+    [['.marquee .track',-140],['.laptop-wrap',-90],['.work-head h2',-60],['.contact h2',-50],['.laptop-glow',60]]
+      .forEach(function(pair){var el=document.querySelector(pair[0]); if(el)
+        G.to(el,{y:pair[1],ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:true}});});
+
+    // hero drifts + fades on scroll
+    G.to('.hero h1',{y:-90,opacity:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    G.to('.hero .sub',{y:-40,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+    // marquee speeds up with scroll velocity
+    var track=document.querySelector('.marquee .track');
+    if(track){ST.create({trigger:'.marquee',start:'top bottom',end:'bottom top',
+      onUpdate:function(self){var v=Math.abs(self.getVelocity()/260);
+        track.style.animationDuration=Math.max(5,26-Math.min(20,v))+'s';}});}
+
+    // glowing progress bar
+    var bar=document.querySelector('.progress>i');
+    if(bar)ST.create({start:0,end:'max',onUpdate:function(self){bar.style.transform='scaleX('+self.progress+')';}});
+
+    setTimeout(function(){ST.refresh();},200);
   }
 });
 </script>
