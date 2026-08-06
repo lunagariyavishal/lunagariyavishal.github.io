@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vishal Lunagariya — Full-Stack Developer & Technical Lead</title>
+<meta name="description" content="Vishal Lunagariya — Full-Stack Developer & Technical Lead. 10+ years shipping web applications across healthcare, gaming, and e-commerce, with hands-on AI/LLM integration." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --bg:#f0ece2;         /* warm cream */
+  --bg-2:#e7e2d5;
+  --ink:#17140f;        /* near-black ink */
+  --muted:#7a7264;
+  --accent:#ff4b23;     /* tomato */
+  --line:rgba(23,20,15,.14);
+  --ease:cubic-bezier(.6,0,.15,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.display{font-family:'Syne',sans-serif;font-weight:800;line-height:.92;letter-spacing:-.02em}
+.container{max-width:1320px;margin:0 auto;padding:0 5vw}
+.accent{color:var(--accent)}
+
+/* cursor */
+.cur{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--ink);border-radius:50%;
+  z-index:9999;pointer-events:none;transform:translate(-50%,-50%)}
+.ring{position:fixed;top:0;left:0;width:40px;height:40px;border:1.5px solid var(--ink);border-radius:50%;
+  z-index:9999;pointer-events:none;transform:translate(-50%,-50%);opacity:.4;
+  transition:width .3s var(--ease),height .3s var(--ease),opacity .3s,background .3s,border-color .3s}
+.ring.grow{width:78px;height:78px;background:var(--accent);border-color:var(--accent);opacity:1;mix-blend-mode:multiply}
+@media(hover:none){.cur,.ring{display:none}body{cursor:auto}}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:200;pointer-events:none}
+.progress>i{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+
+/* preloader */
+.pre{position:fixed;inset:0;z-index:9000;background:var(--bg);display:flex;align-items:center;justify-content:center;
+  transition:transform 1s var(--ease)}
+.pre .c{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(4rem,16vw,14rem);letter-spacing:-.03em}
+.pre .c em{font-style:normal;color:var(--accent)}
+
+/* nav */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:20px 5vw}
+nav .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem}
+nav .logo em{color:var(--accent);font-style:normal}
+.menu{display:flex;gap:26px;align-items:center}
+.menu a{font-size:.88rem;font-weight:500;position:relative}
+.menu a::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:1.5px;background:var(--accent);transition:width .35s var(--ease)}
+.menu a:hover::after{width:100%}
+.menu .avail{display:inline-flex;gap:7px;align-items:center}
+.menu .avail .d{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+@media(max-width:800px){.menu a.hidem{display:none}}
+
+/* hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:16vh 0 6vh}
+.hero-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.85rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);
+  padding-bottom:18px;margin-bottom:4vh}
+.hero h1{font-size:clamp(3rem,15vw,15rem)}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:block;transform:translateY(110%)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:5vh}
+.hero-bottom p{max-width:460px;font-size:clamp(1rem,1.5vw,1.2rem);color:var(--muted);line-height:1.6}
+.hero-bottom p b{color:var(--ink);font-weight:500}
+.cta{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--bg);
+  padding:14px 24px;border-radius:40px;font-weight:600;transition:.3s var(--ease)}
+.cta:hover{background:var(--accent);transform:translateY(-3px)}
+
+/* marquee */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:22px 0}
+.marquee .tk{display:inline-flex;animation:mq 30s linear infinite}
+.marquee b{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.4rem,3.4vw,2.6rem);padding:0 26px;text-transform:uppercase}
+.marquee .s{color:var(--accent)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* SHIP / truck */
+.ship{position:relative}
+.ship-pin{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+.ship-word{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;text-align:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(4rem,20vw,20rem);color:transparent;
+  -webkit-text-stroke:1.5px rgba(23,20,15,.16);letter-spacing:-.02em;pointer-events:none;white-space:nowrap}
+.road{position:absolute;left:0;right:0;bottom:24%;height:2px;background:var(--ink);opacity:.5}
+.road::after{content:"";position:absolute;left:0;right:0;top:14px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--ink) 0 26px,transparent 26px 52px);opacity:.35}
+.truck{position:absolute;bottom:24%;left:0;width:min(46vw,560px);transform:translate(-120%,42%)}
+.truck-svg{width:100%;height:auto;overflow:visible}
+.truck .trailer{fill:var(--accent)}
+.truck .cab{fill:var(--ink)}
+.truck .glass{fill:#cfe8ff}
+.truck .crate{fill:var(--ink)}
+.truck .crate-t{fill:var(--bg);font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.04em}
+.truck .ttxt{fill:#fff;font:800 24px 'Syne',sans-serif;letter-spacing:.02em}
+.truck .tire{fill:#17140f}.truck .rim{fill:#f0ece2}.truck .hub{fill:#17140f}
+.truck .wheel{transform-box:fill-box;transform-origin:center}
+.ship-tag{position:absolute;top:16%;left:5vw;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.ship-head{position:absolute;top:20%;left:5vw;font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(1.8rem,4.5vw,3.6rem);max-width:14ch;line-height:1.05}
+
+/* WORKS horizontal */
+.works{position:relative}
+.works-pin{height:100vh;display:flex;align-items:center;overflow:hidden}
+.works-track{display:flex;gap:30px;padding:0 5vw;will-change:transform}
+.wcard{position:relative;flex:0 0 auto;width:min(78vw,440px);height:64vh;background:var(--bg-2);
+  border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;
+  justify-content:space-between;overflow:hidden;transition:transform .4s var(--ease)}
+.wcard:hover{transform:translateY(-8px)}
+.wcard .no{font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);font-size:.9rem}
+.wcard h3{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;margin-top:6px}
+.wcard .cat{color:var(--muted);font-size:.9rem;margin-top:8px}
+.wcard .thumb{flex:1;margin:18px 0;border-radius:12px;overflow:hidden;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center}
+.wcard .thumb img{width:100%;height:100%;object-fit:cover;object-position:top left}
+.wcard .thumb.ph{background:linear-gradient(135deg,var(--accent),#ff8a5c);}
+.wcard .go{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.works-intro{padding:14vh 0 0}
+
+/* generic sections */
+section{padding:14vh 0}
+.tag{display:inline-flex;align-items:center;gap:10px;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:34px}
+.tag::before{content:"";width:8px;height:8px;background:var(--accent);border-radius:50%}
+.statement{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,4.6vw,3.8rem);line-height:1.15;max-width:17ch}
+.statement .w{display:inline-block;opacity:.16}
+.statement b{color:var(--accent);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:9vh;border-top:1px solid var(--line)}
+.stat{padding:34px 0 0}
+.stat .n{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,3.8rem)}
+.stat .n em{font-style:normal;color:var(--accent)}
+.stat .t{color:var(--muted);font-size:.88rem;margin-top:4px}
+@media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* timeline */
+.job{display:grid;grid-template-columns:190px 1fr;gap:30px;padding:32px 0;border-top:1px solid var(--line)}
+.job .when{color:var(--accent);font-size:.9rem;font-weight:600}
+.job h3{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.6vw,1.7rem)}
+.job p{color:var(--muted);margin-top:8px;max-width:640px;line-height:1.6}
+@media(max-width:640px){.job{grid-template-columns:1fr;gap:6px}}
+
+/* skills */
+.skills{display:flex;flex-wrap:wrap;gap:12px;margin-top:5vh}
+.k{font-family:'Syne',sans-serif;font-weight:600;font-size:clamp(1rem,2vw,1.3rem);padding:11px 20px;
+  border:1px solid var(--line);border-radius:40px;transition:.3s var(--ease)}
+.k:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-4px)}
+
+/* contact */
+.contact{text-align:center;padding:20vh 0}
+.contact h2{font-size:clamp(3rem,16vw,15rem);line-height:.9}
+.contact h2 a:hover{color:var(--accent)}
+.socials{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:50px}
+.socials a{color:var(--muted);position:relative;padding-bottom:4px}
+.socials a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--accent);transition:width .35s var(--ease)}
+.socials a:hover{color:var(--ink)}.socials a:hover::after{width:100%}
+
+footer{border-top:1px solid var(--line);padding:34px 5vw;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:.85rem}
+
+/* reveal — entering & leaving mirror each other */
+.js .rev{opacity:0;transform:translateY(48px)}
+.rev.in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .hero h1 .ln span{transition:transform 1.1s var(--ease)}
+.loaded .hero h1 .ln span{transform:translateY(0)}
+.loaded .hero h1 .ln:nth-child(2) span{transition-delay:.09s}
+.js .hero-top,.js .hero-bottom{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease) .5s,transform .9s var(--ease) .5s}
+.loaded .hero-top,.loaded .hero-bottom{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div class="cur"></div><div class="ring"></div>
+<div class="progress"><i></i></div>
+
+<div class="pre"><div class="c">0<em>%</em></div></div>
+
+<nav>
+  <a class="logo" href="#top" data-hover>VL<em>.</em></a>
+  <div class="menu">
+    <a class="hidem" href="#ship" data-hover>Ship</a>
+    <a class="hidem" href="#works" data-hover>Work</a>
+    <a class="hidem" href="#about" data-hover>About</a>
+    <a class="avail" href="mailto:d.lunagariya131@gmail.com" data-hover><span class="d"></span>Available</a>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-top"><span>Full-Stack Developer &amp; Technical Lead</span><span>Est. 2016 — Rajkot, India</span></div>
+    <h1 class="display">
+      <span class="ln"><span>VISHAL</span></span>
+      <span class="ln"><span>LUNAGARIYA<em class="accent" style="font-style:normal">.</em></span></span>
+    </h1>
+    <div class="hero-bottom">
+      <p>I design, build &amp; ship <b>web applications end-to-end</b> — 10+ years across healthcare, gaming &amp; e-commerce, with hands-on <b>AI / LLM</b> integration.</p>
+      <a class="cta" href="/resume/Vishal_Lunagariya_Resume.pdf" download data-hover>Download Resume ↓</a>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee"><div class="tk" id="tk">
+  <b>Full-Stack</b><b class="s">✳</b><b>Technical Lead</b><b class="s">✳</b><b>AI / LLM</b><b class="s">✳</b><b>3D Web</b><b class="s">✳</b><b>Shipping Software</b><b class="s">✳</b>
+  <b>Full-Stack</b><b class="s">✳</b><b>Technical Lead</b><b class="s">✳</b><b>AI / LLM</b><b class="s">✳</b><b>3D Web</b><b class="s">✳</b><b>Shipping Software</b><b class="s">✳</b>
+</div></div>
+
+<!-- SHIP / TRUCK -->
+<section class="ship" id="ship">
+  <div class="ship-pin">
+    <div class="ship-word">SHIPPING</div>
+    <div class="ship-tag">What I do</div>
+    <div class="ship-head">I ship real products — from first commit to production.</div>
+    <div class="road"></div>
+    <div class="truck">
+      <svg class="truck-svg" viewBox="0 0 470 210" xmlns="http://www.w3.org/2000/svg">
+        <!-- crates on top -->
+        <g class="cargo">
+          <rect class="crate" x="30" y="30" width="66" height="34" rx="4"/><text class="crate-t" x="63" y="52" text-anchor="middle">NG</text>
+          <rect class="crate" x="104" y="30" width="80" height="34" rx="4"/><text class="crate-t" x="144" y="52" text-anchor="middle">NODE</text>
+          <rect class="crate" x="192" y="30" width="52" height="34" rx="4"/><text class="crate-t" x="218" y="52" text-anchor="middle">AI</text>
+        </g>
+        <!-- trailer -->
+        <rect class="trailer" x="14" y="70" width="248" height="92" rx="8"/>
+        <text class="ttxt" x="34" y="126">SHIPPING</text>
+        <!-- cab -->
+        <path class="cab" d="M262 162 V104 Q264 86 284 84 L326 84 L366 122 L366 162 Z"/>
+        <rect class="glass" x="300" y="94" width="42" height="26" rx="3"/>
+        <!-- wheels -->
+        <g class="wheel"><circle class="tire" cx="78" cy="168" r="28"/><circle class="rim" cx="78" cy="168" r="12"/><circle class="hub" cx="78" cy="168" r="4"/><rect x="76" y="146" width="4" height="44" fill="#f0ece2"/><rect x="56" y="166" width="44" height="4" fill="#f0ece2"/></g>
+        <g class="wheel"><circle class="tire" cx="196" cy="168" r="28"/><circle class="rim" cx="196" cy="168" r="12"/><circle class="hub" cx="196" cy="168" r="4"/><rect x="194" y="146" width="4" height="44" fill="#f0ece2"/><rect x="174" y="166" width="44" height="4" fill="#f0ece2"/></g>
+        <g class="wheel"><circle class="tire" cx="330" cy="168" r="28"/><circle class="rim" cx="330" cy="168" r="12"/><circle class="hub" cx="330" cy="168" r="4"/><rect x="328" y="146" width="4" height="44" fill="#f0ece2"/><rect x="308" y="166" width="44" height="4" fill="#f0ece2"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS horizontal -->
+<section class="works" id="works">
+  <div class="container works-intro"><div class="tag">Selected Work</div>
+    <h2 class="display" style="font-size:clamp(2rem,6vw,4.5rem)">Recent<br>builds &amp; ships →</h2>
+  </div>
+  <div class="works-pin">
+    <div class="works-track" id="wtrack">
+      <a class="wcard" href="https://github.com/lunagariyavishal/V-Compression-releases/releases/latest" target="_blank" data-hover>
+        <div class="no">01 — Desktop · Python</div>
+        <div class="thumb"><img src="assets/app.png" alt="V-Compression"></div>
+        <div><h3>V-Compression</h3><div class="cat">Image resize & compression tool</div><span class="go">Download ↗</span></div>
+      </a>
+      <div class="wcard" data-hover>
+        <div class="no">02 — Healthcare</div>
+        <div class="thumb ph"></div>
+        <div><h3>PACS Platform</h3><div class="cat">Radiology · Medical Imaging · dekco.ai</div><span class="go">1,000+ institutions</span></div>
+      </div>
+      <a class="wcard" href="https://www.ivaccess.com/" target="_blank" data-hover>
+        <div class="no">03 — Healthcare</div>
+        <div class="thumb ph"></div>
+        <div><h3>IVAccess</h3><div class="cat">Hospital Management</div><span class="go">Visit ↗</span></div>
+      </a>
+      <a class="wcard" href="https://teenpattiglobal.co.in/" target="_blank" data-hover>
+        <div class="no">04 — Gaming</div>
+        <div class="thumb ph"></div>
+        <div><h3>Global Teen Patti</h3><div class="cat">Real-Time Multiplayer</div><span class="go">Visit ↗</span></div>
+      </a>
+      <a class="wcard" href="https://www.faaausa.com/" target="_blank" data-hover>
+        <div class="no">05 — Web Platform</div>
+        <div class="thumb ph"></div>
+        <div><h3>Federal Appraisal</h3><div class="cat">Appraisal Services</div><span class="go">Visit ↗</span></div>
+      </a>
+      <a class="wcard" href="https://www.gobrogame.com/" target="_blank" data-hover>
+        <div class="no">06 — Gaming</div>
+        <div class="thumb ph"></div>
+        <div><h3>GoBroGame</h3><div class="cat">Gaming Platform</div><span class="go">Visit ↗</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="tag">About</div>
+    <p class="statement" data-split>For 10+ years I've architected, built, and shipped web applications end-to-end. Today I <b>lead a team of 5 at dekco.ai</b>, blending performance engineering with AI-assisted development.</p>
+    <div class="stats">
+      <div class="stat rev"><div class="n"><em>10+</em></div><div class="t">Years Experience</div></div>
+      <div class="stat rev"><div class="n">5</div><div class="t">Dev Team Led</div></div>
+      <div class="stat rev"><div class="n"><em>1K+</em></div><div class="t">Institutions Served</div></div>
+      <div class="stat rev"><div class="n">15+</div><div class="t">Products Shipped</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="tag">Experience</div>
+    <div class="job rev"><div class="when">Feb 2025 — Present</div><div><h3>Lead Engineer · dekco.ai</h3><p>Lead end-to-end development of a PACS radiology platform used by 1,000+ institutions. Mentor a team of 5, own architecture, cut load times from 15–20s to 1–3s.</p></div></div>
+    <div class="job rev"><div class="when">Aug 2022 — Feb 2025</div><div><h3>Senior Full-Stack Developer · Metamersive</h3><p>Backend systems for 3 games, scalable APIs, and optimized 15+ REST APIs for stability and speed.</p></div></div>
+    <div class="job rev"><div class="when">Feb 2018 — Jul 2022</div><div><h3>Senior Web Developer · Addit Infotech</h3><p>Full-lifecycle web apps with Node.js/Express, responsive interfaces, code reviews & mentorship.</p></div></div>
+    <div class="job rev"><div class="when">2021 — Present</div><div><h3>Freelance Contractor</h3><p>Custom e-commerce & CRM with interactive Three.js / Canvas front-ends for 6–7 clients.</p></div></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="tag">Capabilities</div>
+    <div class="skills">
+      <span class="k rev" data-hover>Angular</span><span class="k rev" data-hover>TypeScript</span><span class="k rev" data-hover>Node.js</span>
+      <span class="k rev" data-hover>PHP</span><span class="k rev" data-hover>Python</span><span class="k rev" data-hover>Three.js</span>
+      <span class="k rev" data-hover>WebGL</span><span class="k rev" data-hover>OpenAI</span><span class="k rev" data-hover>Anthropic</span>
+      <span class="k rev" data-hover>MongoDB</span><span class="k rev" data-hover>PostgreSQL</span><span class="k rev" data-hover>Docker</span>
+      <span class="k rev" data-hover>AWS</span><span class="k rev" data-hover>CI/CD</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="tag" style="justify-content:center">Let's Talk</div>
+    <h2 class="display"><a href="mailto:d.lunagariya131@gmail.com" data-hover>GET IN TOUCH</a></h2>
+    <div class="socials">
+      <a href="mailto:d.lunagariya131@gmail.com" data-hover>d.lunagariya131@gmail.com</a>
+      <a href="https://www.linkedin.com/in/vishal-lunagariya/" target="_blank" data-hover>LinkedIn</a>
+      <a href="https://github.com/lunagariyavishal" target="_blank" data-hover>GitHub</a>
+      <a href="/resume/Vishal_Lunagariya_Resume.pdf" download data-hover>Resume ↓</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Vishal Lunagariya</span>
+  <span>Full-Stack Developer & Technical Lead</span>
+  <span>Rajkot, Gujarat, India</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+/* custom cursor */
+(function(){
+  var dot=document.querySelector('.cur'),ring=document.querySelector('.ring');
+  var x=innerWidth/2,y=innerHeight/2,rx=x,ry=y;
+  addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;dot.style.transform='translate('+x+'px,'+y+'px) translate(-50%,-50%)';});
+  (function r(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(r);})();
+  document.querySelectorAll('[data-hover]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.classList.add('grow');});
+    el.addEventListener('mouseleave',function(){ring.classList.remove('grow');});
+  });
+})();
+
+/* boot */
+window.addEventListener('load',function(){
+  var root=document.documentElement,pre=document.querySelector('.pre'),count=pre.querySelector('.c');
+  var done=false;
+  function finish(){if(done)return;done=true;
+    pre.style.transform='translateY(-100%)';setTimeout(function(){pre.style.display='none';},1000);
+    root.classList.add('loaded');initMagic();}
+  var dur=1400,t0=performance.now();
+  (function tick(now){var p=Math.min(1,((now||performance.now())-t0)/dur);
+    count.innerHTML=Math.round(p*100)+'<em>%</em>';if(p<1)requestAnimationFrame(tick);else finish();})(t0);
+  setTimeout(finish,4500);
+
+  function splitWords(){document.querySelectorAll('[data-split]').forEach(function(el){
+    el.innerHTML=el.textContent.trim().split(/\s+/).map(function(w){return '<span class="w">'+w+'</span>';}).join(' ');});}
+  function ioFallback(){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+    document.querySelectorAll('.rev').forEach(function(el){io.observe(el);});
+    document.querySelectorAll('.statement .w').forEach(function(w){w.style.opacity=1;});}
+  function lenisPlain(){if(window.Lenis){var l=new Lenis({lerp:.09,smoothWheel:true});(function raf(t){l.raf(t);requestAnimationFrame(raf);})();}}
+
+  function initMagic(){
+    splitWords();
+    var G=window.gsap,ST=window.ScrollTrigger;
+    if(!G||!ST){ioFallback();lenisPlain();return;}
+    G.registerPlugin(ST);
+    if(window.Lenis){var lenis=new Lenis({lerp:.08,smoothWheel:true});
+      lenis.on('scroll',ST.update);G.ticker.add(function(t){lenis.raf(t*1000);});G.ticker.lagSmoothing(0);}
+
+    var TA='play reverse play reverse'; // enter & leave mirror each other
+    G.utils.toArray('.rev').forEach(function(el){
+      G.fromTo(el,{y:52,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',
+        scrollTrigger:{trigger:el,start:'top 88%',toggleActions:TA}});});
+    G.utils.toArray('.tag').forEach(function(el){
+      G.from(el,{y:30,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',toggleActions:TA}});});
+
+    // statement words light up on scroll (scrub)
+    G.to('.statement .w',{opacity:1,stagger:.05,ease:'none',
+      scrollTrigger:{trigger:'.statement',start:'top 82%',end:'bottom 62%',scrub:.4}});
+
+    /* TRUCK — drives smoothly across, wheels spin (pinned + scrub) */
+    var truck=document.querySelector('.truck');
+    if(truck){
+      var tl=G.timeline({scrollTrigger:{trigger:'.ship',start:'top top',end:'+=180%',scrub:1,pin:'.ship-pin'}});
+      tl.fromTo('.truck',{x:'-30vw'},{x:'115vw',ease:'none'},0)
+        .to('.truck .wheel',{rotation:1800,ease:'none'},0)
+        .fromTo('.ship-word',{xPercent:8},{xPercent:-8,ease:'none'},0);
+    }
+
+    /* WORKS — horizontal smooth scroll (pinned) */
+    var track=document.getElementById('wtrack');
+    if(track){
+      var dist=function(){return track.scrollWidth-window.innerWidth+ (window.innerWidth*0.10);};
+      G.to(track,{x:function(){return -dist();},ease:'none',
+        scrollTrigger:{trigger:'.works',start:'top top',end:function(){return '+='+dist();},scrub:1,pin:'.works-pin',invalidateOnRefresh:true}});
+    }
+
+    /* parallax — continuous motion between sections */
+    [['.marquee .tk',-100],['.ship-head',-40],['.contact h2',-40]].forEach(function(p){
+      var el=document.querySelector(p[0]);if(el)G.to(el,{y:p[1],ease:'none',
+        scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:true}});});
+    G.to('.hero h1',{y:-70,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+    /* marquee reacts to scroll velocity */
+    var tk=document.getElementById('tk');
+    if(tk)ST.create({trigger:'.marquee',start:'top bottom',end:'bottom top',
+      onUpdate:function(self){tk.style.animationDuration=Math.max(6,30-Math.min(22,Math.abs(self.getVelocity()/240)))+'s';}});
+
+    /* progress bar */
+    var bar=document.querySelector('.progress>i');
+    if(bar)ST.create({start:0,end:'max',onUpdate:function(self){bar.style.transform='scaleX('+self.progress+')';}});
+
+    setTimeout(function(){ST.refresh();},250);
+  }
+});
+</script>
+</body>
+</html>
